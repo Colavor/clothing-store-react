@@ -1,0 +1,17 @@
+.card__product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card__preview {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+}
+
+.card__description {
+  width: 100%;
+  padding-top: 0.5rem;
+  text-align: center;
+}
