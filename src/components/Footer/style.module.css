@@ -1,0 +1,45 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 3rem 20rem;
+  margin-top: 2rem;
+
+  background-color: black;
+  color: white;
+}
+
+.footerColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footerColumn h4 {
+  margin: 0;
+}
+
+.footerColumn ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+
+  padding: 0;
+  margin: 0;
+}
+
+.footerColumn li {
+  list-style: none;
+}
+
+.footerColumn a {
+  color: white;
+  text-decoration: none;
+}
+
+.newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
