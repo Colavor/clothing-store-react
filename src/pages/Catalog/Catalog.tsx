@@ -1,17 +1,10 @@
 import styles from "./style.module.css";
-import { useState, useEffect } from "react";
-import type { Product } from "../../types/product";
-import { fetchProducts } from "../../services/ProductService";
+
 import ProductList from "../../components/ProductList/ProductList";
+import { useProducts } from "../../hooks/useProducts";
 
 const Catalog = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    fetchProducts().then((data) => {
-      setProducts(data.products);
-    });
-  }, []);
+  const { products } = useProducts();
 
   return (
     <div className={styles.catalog}>
