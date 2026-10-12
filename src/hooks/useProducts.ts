@@ -1,23 +1,33 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useCatalogStore } from "../store/useCatalogStore";
-import type { Product } from "../types/product";
 import { fetchProducts, fetchSearchProducts } from "../services/ProductService";
+import type { ProductQueryParams } from "../types/catalog";
 
-export const useProducts = () => {
+export const useProducts = ({ sortBy, order }: ProductQueryParams) => {
   const search = useCatalogStore((state) => state.search);
-  const [products, setProducts] = useState<Product[]>([]);
+  const normalizedSearch = search.trim();
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      const data = search.trim()
-        ? await fetchSearchProducts(search)
-        : await fetchProducts();
+  const query = useQuery({
+    queryKey: ["products", normalizedSearch, sortBy, order],
 
-      setProducts(data.products);
-    };
+    queryFn: async () => {
+      const params = {
+        sortBy,
+        order,
+      };
 
-    loadProducts();
-  }, [search]);
+      const data = normalizedSearch
+        ? await fetchSearchProducts(normalizedSearch, params)
+        : await fetchProducts(params);
 
-  return { products };
+      return data.products;
+    },
+  });
+
+  return {
+    products: query.data ?? [],
+    isLoading: query.isLoading,
+    error: query.error,
+    refetch: query.refetch,
+  };
 };
