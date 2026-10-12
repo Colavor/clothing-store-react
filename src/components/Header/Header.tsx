@@ -5,12 +5,15 @@ import { useCatalogStore } from "../../store/useCatalogStore";
 import { useCallback, useRef, useState } from "react";
 import MyInput from "../UI/Input/MyInput";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { useCategoriesStore } from "../../store/useCategoriesStore";
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
   const search = useCatalogStore((state) => state.search);
   const setSearch = useCatalogStore((state) => state.setSearch);
+
+  const openCategories = useCategoriesStore((state) => state.open);
 
   const [inputValue, setInputValue] = useState(search);
 
@@ -28,7 +31,7 @@ const Header = () => {
   return (
     <header className={style.header}>
       <div className={style.left}>
-        <button className={style.menuButton}>
+        <button className={style.menuButton} onClick={openCategories}>
           <img src={menu} alt="menu" className={style.menuIcon} />
         </button>
 
