@@ -1,0 +1,14 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.pagination__button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 1.1rem;
+}

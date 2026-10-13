@@ -7,10 +7,9 @@ import { useState } from "react";
 import MyButton from "../../components/UI/Button/MyButton";
 import FiltersDrawer from "../../components/FiltersDrawer/FiltersDrawer";
 import type { SortBy, OrderBy } from "../../types/catalog";
-import CategoriesDrawer from "../../components/CategoriesDrawer/CategoriesDrawer";
-import { useCategoriesStore } from "../../store/useCategoriesStore";
-import { useCategories } from "../../hooks/useCategories";
 import { useParams } from "react-router-dom";
+import Pagination from "../../components/UI/Pagination/Pagination";
+import { usePagination } from "../../hooks/usePagination";
 
 const Catalog = () => {
   //Filters
@@ -18,29 +17,23 @@ const Catalog = () => {
   const [order, setOrder] = useState<OrderBy>("");
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
-  //Categories
-  const isCategoriesOpen = useCategoriesStore((state) => state.isOpen);
-  const closeCategories = useCategoriesStore((state) => state.close);
-  const { categories } = useCategories();
   const { categorySlug } = useParams<{ categorySlug: string }>();
 
-  const { products, isLoading, error, refetch } = useProducts({
+  const { page, setPage, limit, skip } = usePagination(20);
+
+  const { products, total, isLoading, error, refetch } = useProducts({
     sortBy,
     order,
     category: categorySlug,
+    skip: skip,
+    limit: limit,
   });
+
+  const totalPages = Math.ceil(total / limit);
 
   return (
     <div className={styles.catalog}>
       <MyButton onClick={() => setIsFiltersOpen(true)}>Фильтры</MyButton>
-
-      {isCategoriesOpen && (
-        <CategoriesDrawer
-          isOpenCategories={isCategoriesOpen}
-          categories={categories}
-          onCloseCategories={closeCategories}
-        />
-      )}
 
       {isFiltersOpen && (
         <FiltersDrawer
@@ -63,6 +56,14 @@ const Catalog = () => {
       )}
 
       {!isLoading && !error && <ProductList products={products} />}
+
+      {!isLoading && !error && (
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
+      )}
     </div>
   );
 };

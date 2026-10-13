@@ -1,5 +1,6 @@
 import styles from "./styles.module.css";
 import type { Product } from "../../types/product";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   product: Product;
@@ -7,7 +8,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
-    <div className={styles.card__product}>
+    <Link to={`/product/${product.id}`} className={styles.card__product}>
       <img
         className={styles.card__preview}
         src={product.thumbnail}
@@ -17,7 +18,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <h4>{product.title}</h4>
         <span>{product.price}</span>
       </div>
-    </div>
+    </Link>
   );
 };
 

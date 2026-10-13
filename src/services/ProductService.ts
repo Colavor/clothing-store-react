@@ -1,15 +1,19 @@
 import axios from "axios";
-import type { ProductResponse } from "../types/product";
+import type { Product, ProductResponse } from "../types/product";
 import type { Category, ProductQueryParams } from "../types/catalog";
 
 export const fetchProducts = async ({
+  limit,
+  skip,
   sortBy,
   order,
-}: ProductQueryParams = {}) => {
+}: ProductQueryParams) => {
   const response = await axios.get<ProductResponse>(
     "https://dummyjson.com/products",
     {
       params: {
+        limit,
+        skip,
         ...(sortBy && { sortBy }),
         ...(order && { order }),
       },
@@ -21,13 +25,15 @@ export const fetchProducts = async ({
 
 export const fetchSearchProducts = async (
   query: string,
-  { sortBy, order }: ProductQueryParams = {},
+  { skip, limit, sortBy, order }: ProductQueryParams,
 ) => {
   const response = await axios.get<ProductResponse>(
     "https://dummyjson.com/products/search",
     {
       params: {
         q: query,
+        limit,
+        skip,
         ...(sortBy && { sortBy }),
         ...(order && { order }),
       },
@@ -47,16 +53,26 @@ export const fetchCategories = async () => {
 
 export const fetchProductsByCategory = async (
   category: string,
-  { sortBy, order }: ProductQueryParams = {},
+  { limit, skip, sortBy, order }: ProductQueryParams,
 ) => {
   const response = await axios.get<ProductResponse>(
     `https://dummyjson.com/products/category/${category}`,
     {
       params: {
+        limit,
+        skip,
         ...(sortBy && { sortBy }),
         ...(order && { order }),
       },
     },
+  );
+
+  return response.data;
+};
+
+export const fetchProductById = async (id: string) => {
+  const response = await axios.get<Product>(
+    `https://dummyjson.com/products/${id}`,
   );
 
   return response.data;

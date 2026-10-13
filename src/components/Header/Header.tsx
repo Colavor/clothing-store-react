@@ -5,7 +5,9 @@ import { useCatalogStore } from "../../store/useCatalogStore";
 import { useCallback, useRef, useState } from "react";
 import MyInput from "../UI/Input/MyInput";
 import { useClickOutside } from "../../hooks/useClickOutside";
-import { useCategoriesStore } from "../../store/useCategoriesStore";
+import { useCategoriesDrawer } from "../../hooks/useCategoriesDrawer";
+import CategoriesDrawer from "../CategoriesDrawer/CategoriesDrawer";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
@@ -13,11 +15,13 @@ const Header = () => {
   const search = useCatalogStore((state) => state.search);
   const setSearch = useCatalogStore((state) => state.setSearch);
 
-  const openCategories = useCategoriesStore((state) => state.open);
-
   const [inputValue, setInputValue] = useState(search);
 
   const searchRef = useRef<HTMLLIElement>(null);
+
+  const navigate = useNavigate();
+
+  const { isOpen, open, close, categories } = useCategoriesDrawer();
 
   const closeSearch = useCallback(() => {
     setIsSearchOpen(false);
@@ -30,12 +34,18 @@ const Header = () => {
 
   return (
     <header className={style.header}>
+      <CategoriesDrawer
+        isOpenCategories={isOpen}
+        categories={categories}
+        onCloseCategories={close}
+      />
+
       <div className={style.left}>
-        <button className={style.menuButton} onClick={openCategories}>
+        <button className={style.menuButton} onClick={open}>
           <img src={menu} alt="menu" className={style.menuIcon} />
         </button>
 
-        <a href="#" className={style.logo}>
+        <a href="/" className={style.logo}>
           <img src={logo} alt="Our logo" className={style.logoImage} />
         </a>
       </div>
@@ -57,6 +67,8 @@ const Header = () => {
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
                     setSearch(inputValue);
+                    navigate("/catalog");
+                    setIsSearchOpen(false);
                   }
                 }}
                 autoFocus
