@@ -7,13 +7,17 @@ import MyInput from "../UI/Input/MyInput";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { useCategoriesDrawer } from "../../hooks/useCategoriesDrawer";
 import CategoriesDrawer from "../CategoriesDrawer/CategoriesDrawer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCartStore } from "../../store/useCartStore";
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
   const search = useCatalogStore((state) => state.search);
   const setSearch = useCatalogStore((state) => state.setSearch);
+
+  const items = useCartStore((state) => state.items);
+  const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
 
   const [inputValue, setInputValue] = useState(search);
 
@@ -45,9 +49,9 @@ const Header = () => {
           <img src={menu} alt="menu" className={style.menuIcon} />
         </button>
 
-        <a href="/" className={style.logo}>
+        <Link to="/" className={style.logo}>
           <img src={logo} alt="Our logo" className={style.logoImage} />
-        </a>
+        </Link>
       </div>
 
       <nav className={style.menu}>
@@ -79,11 +83,11 @@ const Header = () => {
           <li>
             <a href="#profile">Профиль</a>
           </li>
+          <Link to="/favorites">Избранное</Link>
           <li>
-            <a href="#favourite">Избранное</a>
-          </li>
-          <li>
-            <a href="#card">Корзина</a>
+            <Link to="/cart">
+              Корзина {totalQuantity > 0 && `[${totalQuantity}]`}
+            </Link>
           </li>
         </ul>
       </nav>

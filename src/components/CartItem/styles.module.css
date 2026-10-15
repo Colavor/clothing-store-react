@@ -1,0 +1,72 @@
+.cartItem {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.image {
+  width: 120px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.info h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.info p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.quantityButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #000;
+  background-color: transparent;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.quantityButton:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.quantityValue {
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.removeButton {
+  align-self: flex-start;
+  border: none;
+  background-color: transparent;
+  color: #555;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.removeButton:hover {
+  color: #000;
+}

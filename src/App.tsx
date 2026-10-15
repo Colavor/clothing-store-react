@@ -4,6 +4,8 @@ import Catalog from "./pages/Catalog/Catalog";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import "./styles/App.css";
 import { Route, Routes, Navigate } from "react-router-dom";
+import Cart from "./pages/Cart/Cart";
+import Favourites from "./pages/Favourites/Favourites";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/catalog/category/:categorySlug" element={<Catalog />} />
         <Route path="/product/:productId" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/favorites" element={<Favourites />} />
       </Routes>
       <Footer />
     </div>

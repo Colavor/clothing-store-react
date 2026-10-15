@@ -1,0 +1,50 @@
+.cart {
+  flex: 1;
+  width: 100%;
+  padding: 0 2rem 3rem;
+}
+
+.cartEmpty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.title {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-top: 2rem;
+}
+
+.summary p {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.clearButton {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #000;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.clearButton:hover {
+  background-color: #fff;
+  color: #000;
+}

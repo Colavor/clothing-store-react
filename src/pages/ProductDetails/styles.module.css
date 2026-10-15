@@ -3,5 +3,10 @@
   align-items: center;
   justify-content: center;
   gap: 5rem;
-  height: 38rem;
+  min-height: 38rem;
+}
+
+.images__product {
+  width: 16rem;
+  height: 16rem;
 }
